@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern CSS Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header with fixed positioning */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        /* Main content with relative positioning */
+        main {
+            position: relative;
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero section with absolute positioned elements */
+        .hero {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(rgba(75, 108, 183, 0.7), rgba(24, 40, 72, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%234b6cb7" width="100" height="100"/><path fill="%23182848" d="M0 0L100 100" stroke-width="0"/></svg>');
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        /* Floating elements with absolute positioning */
+        .floating-card {
+            position: absolute;
+            width: 250px;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        .card-1 {
+            top: 50px;
+            right: 50px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        }
+
+        .card-2 {
+            bottom: 50px;
+            left: 50px;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        /* Content sections */
+        .content-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .content-section h2 {
+            color: #4b6cb7;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #c3cfe2;
+        }
+
+        /* Sticky sidebar */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            float: right;
+            width: 300px;
+            margin-left: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3 {
+            color: #182848;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Card grid with relative positioning */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img {
+            height: 160px;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            color: #4b6cb7;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            background: linear-gradient(to right, #182848, #4b6cb7);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 900px) {
+            .sidebar {
+                float: none;
+                width: 100%;
+                margin: 2rem 0;
+            }
+
+            .floating-card {
+                position: relative;
+                top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
+                margin: 1rem auto;
+                width: 80%;
+            }
+
+            .hero {
+                height: auto;
+                padding: 3rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">CSS Layouts</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Modern CSS Layouts</h1>
+            <p>Exploring positioning properties with beautiful color combinations</p>
+
+            <div class="floating-card card-1">
+                <h3>Absolute Positioning</h3>
+                <p>This card uses absolute positioning to float above other content.</p>
+            </div>
+
+            <div class="floating-card card-2">
+                <h3>Color Harmony</h3>
+                <p>Carefully selected color combinations create visual appeal.</p>
+            </div>
+        </section>
+
+        <div class="sidebar">
+            <h3>CSS Positioning</h3>
+            <ul>
+                <li>Static Positioning</li>
+                <li>Relative Positioning</li>
+                <li>Absolute Positioning</li>
+                <li>Fixed Positioning</li>
+                <li>Sticky Positioning</li>
+            </ul>
+        </div>
+
+        <section class="content-section">
+            <h2>About CSS Positioning</h2>
+            <p>CSS positioning allows you to control the layout of your content with precision. The position property
+                specifies the type of positioning method used for an element (static, relative, fixed, absolute, or
+                sticky).</p>
+            <p>When combined with thoughtful color schemes, you can create visually appealing and functional layouts
+                that enhance user experience.</p>
+        </section>
+
+        <section>
+            <h2>Color Theory in Web Design</h2>
+            <p>Colors can influence how users perceive your website and interact with your content. The gradient color
+                scheme used in this layout creates a modern and professional appearance.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-img"></div>
+                    <div class="card-content">
+                        <h3>Blue Harmony</h3>
+                        <p>Blue color schemes convey trust, security, and professionalism.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img"></div>
+                    <div class="card-content">
+                        <h3>Warm Contrasts</h3>
+                        <p>Warm colors create energy and draw attention to important elements.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img"></div>
+                    <div class="card-content">
+                        <h3>Gradient Trends</h3>
+                        <p>Gradients add depth and dimension to modern web designs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Modern CSS Layouts | Designed with CSS Positioning Properties</p>
+    </footer>
+</body>
+
+</html>

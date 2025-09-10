@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;  
+    box-sizing: border-box;
+}
+.main-parent{
+    height: 100vh;
+    width: 100vw;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.box{
+    height: 150px;
+    width: 150px;
+}
+.box-1{
+    background-color: red;
+    position: static; /* default value */
+    /* top: 100px; won't work */
+    position: relative; /* initial place of the element won't be occupied by another element */
+    left: 300px;
+}
+.box-2{
+    background-color: green;
+    position: absolute; /* subsequent elements will take the place of absolute element */
+    left: 100px;
+    transform: rotate(30deg);
+}
+.box-3{
+    background-color: orange;
+
+}
+.box-4{
+    background-color: violet;
+}
+.box-5{
+    background-color: teal;
+}
+
+
+.main-container{
+    height: 200vh ;
+    width: 100%;
+    background-color: rgb(237, 221, 150);
+
+}
+
+.main-child{
+    height: 200px;
+    width: 200px;
+    background-color: teal;
+    position: fixed;
+    /* top: 0; */
+    bottom: 200px;
+    z-index: 5;
+    
+}
+.main-child-two{
+    width: 200px;
+    height: 200px;
+    background-color: brown;
+    position: sticky;
+    top: 150px;
+    z-index: 1;
+}
+
+.main-container-two{
+    height: 100vh;
+}

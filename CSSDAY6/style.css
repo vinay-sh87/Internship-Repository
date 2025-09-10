@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.container{
+    width: 200px;
+    height: 200px;
+    border: 10px outset chocolate;
+    background-color: black;
+    margin: 2rem;
+    margin-block: 40px; /* top and bottom */
+    margin-inline: 60px; /* left and right */
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}

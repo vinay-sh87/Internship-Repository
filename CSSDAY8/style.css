@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    height: 50vh;
+    width: 100vw;
+    background-color: blueviolet;
+    display:flex;
+
+    /* justify content property is used to justify flex items in the main-axis --> start(default), end, center, space-between, space-around, space-evenly */
+    /* justify-content: center; */
+    /* justify-content: end; */
+    /* justify-content: space-between; */
+    /* justify-content: space-around; */
+    /* justify-content: space-evenly; */
+    
+    
+    /* align-items property is useds to align items in cross-axis --> stretch, start, end, center */
+    align-items: center; 
+
+    /* flex-direction property is used for changing the direction of    */
+    flex-direction: row; /* by default */
+    flex-direction: row-reverse;
+    flex-direction: column;
+    flex-direction: column-reverse;
+
+
+
+}
+.box-one{
+    height: 150px;
+    width: 150px;
+    background-color: #fff;
+}
+.box-two{
+    height: 150px;
+    width: 150px;
+    background-color:black;
+}

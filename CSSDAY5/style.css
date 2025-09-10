@@ -1,0 +1,25 @@
+.main-parent{
+    height: 60vh;
+    width: 90vw;
+    border: 1px solid black;
+    background-image: url(https://cdn.pixabay.com/photo/2025/07/22/14/16/bullfrog-9728505_1280.jpg);
+    background-repeat: no-repeat;
+    /* background-repeat: repeat; */
+    /* background-repeat: repeat-x; */
+    /* background-repeat: repeat-y; */
+    background-size: contain; /* cover(completely covers), contain(only with the dimensions of image), auto */
+    background-position: center; /* top, bottom, left, right */
+    background-attachment: fixed; /* scroll, fixed */
+    background-clip: padding-box;
+}
+
+.gradient-div{
+    margin-top: 2rem;
+    height: 50vh;
+    width: 90vw;
+    border: 1px solid black;
+    background: linear-gradient(to bottom right, rgb(0,0,100), hsl(60, 100%, 50%), #0000ff); /* linear gradient is a part of background image */
+    background: radial-gradient(circle , red, lightblue, lightyellow,lightgreen, yellow, orange, red); /* radial gradient */
+    background: radial-gradient(ellipse at bottom , red, lightblue, lightyellow,lightgreen, yellow, orange, red); /* radial gradient */
+   
+}

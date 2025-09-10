@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
+}
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+
+body{
+    background-color: #111;
+}
+
+.header-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 6rem;
+    flex-wrap: wrap;
+    background-color: #fff;
+}
+.logo{
+    height: 45px;
+    width: 45px;
+}
+.right-div ul{
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.right-div ul li a{
+    font-weight: bold;
+}
+
+.register-btn, .payus-btn{
+    background-color: rgb(74, 111, 199);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 4px;
+}

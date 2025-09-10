@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+li a {
+  text-decoration: none;
+}
+
+body {
+  background-color: black;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #fdfaf1;
+  padding: 5px 0;
+}
+
+.left img {
+  width: 125px;
+  height: 59.23px;
+}
+
+.right ul {
+  display: flex;
+  gap: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.right ul li a:hover {
+  color: darkgreen;
+}
+
+.right ul li a {
+  color: black;
+}
+
+.call-btn {
+  border: 2px solid black;
+  padding: 0.6rem 1.5rem;
+  border-radius: 1.2rem;
+}

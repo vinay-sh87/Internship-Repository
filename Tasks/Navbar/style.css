@@ -24,12 +24,14 @@ li a{
     margin: 0 auto;
     padding: 1rem;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .nav-items{
     display: flex;
     justify-content: space-between;
     gap: 2.5rem;
+    flex-wrap: wrap;
 }
 
 .nav-items li a{

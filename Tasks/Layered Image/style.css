@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+    height: 80vh;
+    width: 100%;
+    background-color: black;
+    background: url(https://images.pexels.com/photos/1586144/pexels-photo-1586144.jpeg);
+    background-position: center;
+    background-size: cover;
+
+}
+.container::before{
+    content: " ";
+    height: 80vh;
+    width: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.texts{
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    width: 60%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
+.texts h1{
+    margin-bottom: 1rem;
+    font-size: 3.5rem;
+}
+.texts p{
+    text-align: center;
+    line-height: 1.6em;
+}

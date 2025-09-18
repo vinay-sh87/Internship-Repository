@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+/* used to make our website layouts responsive with respect to different screen sizes */
+
+body{
+    background-color: black;
+}
+
+@media screen and ((min-width:576px) and (max-width:776px) ){
+    body{
+        background-color: teal;
+    }
+    
+}
+
+@media screen and ( (min-width:400px) and(max-width:576px)){
+    body{
+        background-color: crimson;
+    }
+    
+}
+
+
+@media screen and (max-width:400px) {
+    body{
+        background-color:darkslateblue;
+    }
+}
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 2rem auto;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.boxes{
+    width: 300px;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(255,255,255,0.5);
+}
+@media screen and (max-width: 576px) {
+    .boxes {
+        width: 100%;
+    }
+}

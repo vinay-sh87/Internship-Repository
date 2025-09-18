@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.box{
+    height: 200px;
+    width: 200px;
+    border: 5px solid black;
+    animation: rot 2s 1s ease-in-out infinite;
+    position: relative;
+}
+@keyframes rot {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: 500px;
+        transform: rotate(90deg);
+        border-top-left-radius: 100%;
+        border-top-right-radius: 100%;
+        background-color: black;
+        width: 100px;
+        height: 300px;
+        box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+    }
+}

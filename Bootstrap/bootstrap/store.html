@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monochrome Store | Premium Black & White Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8f9fa;
+            --dark-bg: #000000;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --border-color: #dee2e6;
+            --accent-color: #343a40;
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--dark-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        
+        .nav-link:hover {
+            color: #ccc !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            border-bottom: 2px solid var(--dark-bg);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .product-card {
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+            background-color: var(--primary-bg);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            background-color: var(--secondary-bg);
+        }
+        
+        .product-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 15px;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--dark-bg);
+            font-size: 1.2rem;
+        }
+        
+        .btn-dark-custom {
+            background-color: var(--dark-bg);
+            color: white;
+            border-radius: 0;
+            padding: 10px 20px;
+            border: none;
+        }
+        
+        .btn-dark-custom:hover {
+            background-color: #333;
+            color: white;
+        }
+        
+        .btn-outline-custom {
+            background-color: transparent;
+            color: var(--dark-bg);
+            border: 1px solid var(--dark-bg);
+            border-radius: 0;
+            padding: 10px 20px;
+        }
+        
+        .btn-outline-custom:hover {
+            background-color: var(--dark-bg);
+            color: white;
+        }
+        
+        .filter-section {
+            background-color: var(--secondary-bg);
+            padding: 20px;
+            border-radius: 0;
+            margin-bottom: 30px;
+        }
+        
+        .cart-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+        }
+        
+        .cart-total {
+            background-color: var(--secondary-bg);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .checkout-step {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-bg);
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .active-step .step-number {
+            background-color: var(--accent-color);
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            margin: 0 5px;
+        }
+        
+        .badge-cart {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">MONOCHROME</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart">
+                            <i class="bi bi-bag"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-cart">3</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">ELEGANCE IN MONOCHROME</h1>
+            <p class="lead">Discover our premium collection of black and white products</p>
+            <a href="#products" class="btn btn-light btn-lg mt-3">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Product Listing Section -->
+    <section id="products" class="container mb-5">
+        <h2 class="section-title">Featured Products</h2>
+        
+        <!-- Filter Section -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="filter-section">
+                    <h5>Filters</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select">
+                            <option selected>All Categories</option>
+                            <option>Fashion</option>
+                            <option>Electronics</option>
+                            <option>Home & Living</option>
+                            <option>Accessories</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Price Range</label>
+                        <input type="range" class="form-range" min="0" max="500" step="10">
+                        <div class="d-flex justify-content-between">
+                            <span>$0</span>
+                            <span>$500</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Color</label>
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="colorBlack" checked>
+                                <label class="form-check-label" for="colorBlack">Black</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="colorWhite" checked>
+                                <label class="form-check-label" for="colorWhite">White</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="colorGray">
+                                <label class="form-check-label" for="colorGray">Gray</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-dark-custom w-100">Apply Filters</button>
+                </div>
+            </div>
+            
+            <!-- Product Grid -->
+            <div class="col-md-9">
+                <div class="row">
+                    <!-- Product 1 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-image" alt="Black T-Shirt">
+                            <div class="card-body text-center">
+                                <h5 class="card-title product-title">Minimal Black T-Shirt</h5>
+                                <p class="card-text text-muted">Premium cotton blend with minimalist design</p>
+                                <p class="product-price">$29.99</p>
+                                <button class="btn btn-dark-custom add-to-cart" data-product="Minimal Black T-Shirt" data-price="29.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-image" alt="White Sneakers">
+                            <div class="card-body text-center">
+                                <h5 class="card-title product-title">Classic White Sneakers</h5>
+                                <p class="card-text text-muted">Comfortable and stylish everyday sneakers</p>
+                                <p class="product-price">$89.99</p>
+                                <button class="btn btn-dark-custom add-to-cart" data-product="Classic White Sneakers" data-price="89.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-image" alt="Black Headphones">
+                            <div class="card-body text-center">
+                                <h5 class="card-title product-title">Premium Black Headphones</h5>
+                                <p class="card-text text-muted">Noise-cancelling wireless headphones</p>
+                                <p class="product-price">$199.99</p>
+                                <button class="btn btn-dark-custom add-to-cart" data-product="Premium Black Headphones" data-price="199.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-image" alt="White Watch">
+                            <div class="card-body text-center">
+                                <h5 class="card-title product-title">Elegant White Watch</h5>
+                                <p class="card-text text-muted">Minimalist design with premium materials</p>
+                                <p class="product-price">$149.99</p>
+                                <button class="btn btn-dark-custom add-to-cart" data-product="Elegant White Watch" data-price="149.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-image" alt="Black Backpack">
+                            <div class="card-body text-center">
+                                <h5 class="card-title product-title">Urban Black Backpack</h5>
+                                <p class="card-text text-muted">Durable and spacious for everyday use</p>
+                                <p class="product-price">$79.99</p>
+                                <button class="btn btn-dark-custom add-to-cart" data-product="Urban Black Backpack" data-price="79.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-image" alt="White Mug">
+                            <div class="card-body text-center">
+                                <h5 class="card-title product-title">Ceramic White Mug</h5>
+                                <p class="card-text text-muted">Perfect for your morning coffee or tea</p>
+                                <p class="product-price">$19.99</p>
+                                <button class="btn btn-dark-custom add-to-cart" data-product="Ceramic White Mug" data-price="19.99">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Product pagination" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="shoppingCart" aria-labelledby="shoppingCartLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="shoppingCartLabel">Your Shopping Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="cart-items">
+                <!-- Cart Item 1 -->
+                <div class="cart-item">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" class="img-fluid" alt="Product">
+                        </div>
+                        <div class="col-9">
+                            <h6>Minimal Black T-Shirt</h6>
+                            <p class="text-muted">Size: M</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="quantity-control">
+                                    <span class="quantity-btn">-</span>
+                                    <input type="text" class="quantity-input" value="1">
+                                    <span class="quantity-btn">+</span>
+                                </div>
+                                <span class="product-price">$29.99</span>
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Item 2 -->
+                <div class="cart-item">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" class="img-fluid" alt="Product">
+                        </div>
+                        <div class="col-9">
+                            <h6>Classic White Sneakers</h6>
+                            <p class="text-muted">Size: 9</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="quantity-control">
+                                    <span class="quantity-btn">-</span>
+                                    <input type="text" class="quantity-input" value="1">
+                                    <span class="quantity-btn">+</span>
+                                </div>
+                                <span class="product-price">$89.99</span>
+                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cart-total">
+                <div class="d-flex justify-content-between">
+                    <span>Subtotal:</span>
+                    <span>$119.98</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Shipping:</span>
+                    <span>$9.99</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between fw-bold">
+                    <span>Total:</span>
+                    <span>$129.97</span>
+                </div>
+                <button class="btn btn-dark-custom w-100 mt-3" data-bs-toggle="modal" data-bs-target="#checkoutModal">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Checkout Steps -->
+                    <div class="checkout-step active-step">
+                        <h6><span class="step-number">1</span> Shipping Information</h6>
+                        <form class="mt-3">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="state" class="form-label">State</label>
+                                    <select class="form-select" id="state" required>
+                                        <option value="">Choose...</option>
+                                        <option>California</option>
+                                        <option>New York</option>
+                                        <option>Texas</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="zip" class="form-label">Zip</label>
+                                    <input type="text" class="form-control" id="zip" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="checkout-step">
+                        <h6><span class="step-number">2</span> Payment Method</h6>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" checked>
+                            <label class="form-check-label" for="creditCard">
+                                Credit Card
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
+                            <label class="form-check-label" for="paypal">
+                                PayPal
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer">
+                            <label class="form-check-label" for="bankTransfer">
+                                Bank Transfer
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-step">
+                        <h6><span class="step-number">3</span> Order Review</h6>
+                        <div class="mt-3">
+                            <p>Review your order before placing it.</p>
+                            <!-- Order summary would go here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-dark-custom">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>MONOCHROME</h5>
+                    <p>Premium black and white products for a minimalist lifestyle.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Shop</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">All Products</a></li>
+                        <li><a href="#" class="text-white-50">New Arrivals</a></li>
+                        <li><a href="#" class="text-white-50">Best Sellers</a></li>
+                        <li><a href="#" class="text-white-50">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Company</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">About Us</a></li>
+                        <li><a href="#" class="text-white-50">Contact</a></li>
+                        <li><a href="#" class="text-white-50">Shipping</a></li>
+                        <li><a href="#" class="text-white-50">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to get special offers and updates.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-light" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Monochrome Store. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple cart functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add to cart buttons
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const product = this.getAttribute('data-product');
+                    const price = this.getAttribute('data-price');
+                    
+                    // In a real application, you would add the product to the cart
+                    alert(`${product} added to cart!`);
+                    
+                    // Update cart badge
+                    const cartBadge = document.querySelector('.badge-cart');
+                    let currentCount = parseInt(cartBadge.textContent);
+                    cartBadge.textContent = currentCount + 1;
+                });
+            });
+            
+            // Quantity controls
+            const quantityBtns = document.querySelectorAll('.quantity-btn');
+            
+            quantityBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
+                    let value = parseInt(input.value);
+                    
+                    if (this.textContent === '+') {
+                        value++;
+                    } else if (this.textContent === '-' && value > 1) {
+                        value--;
+                    }
+                    
+                    input.value = value;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

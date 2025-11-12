@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .main-container {
+        max-width: 600px;
+        width: 90%;
+        margin: 4rem auto;
+        box-shadow: 10px 20px 20px -10px rgba(0, 0, 0, 0.5);
+        padding: 3rem;
+      }
+      .main-container h5 {
+        text-align: center;
+      }
+      .github-logo {
+        display: block;
+        margin: 0 auto;
+      }
+      .info-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+      }
+      .info-container h4 {
+        text-align: center;
+        margin: 0.5rem auto;
+      }
+      .fetch-info ul {
+        list-style: none;
+      }
+      .input-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0.5rem auto 1rem;
+      }
+      .input-group input {
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        outline: 2px solid black;
+        border: none;
+      }
+      .input-group button {
+        padding: 0.5rem 1rem;
+        border: none;
+        background-color: black;
+        color: #fff;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <img
+        src="github-logo.png"
+        height="100"
+        width="100"
+        alt="github-logo"
+        class="github-logo"
+      />
+      <h5>Github</h5>
+      <div class="info-container">
+        <h4>Personal Info</h4>
+        <div class="input-group">
+          <input type="text" id="userInput" placeholder="Enter username..." />
+          <button id="fetchBtn" type="button">Fetch User</button>
+        </div>
+        <div class="fetch-info">
+          <ul>
+            <li>
+              <b>Name: <span id="name"></span></b>
+            </li>
+            <li>
+              <b>Bio: <span id="bio"></span></b>
+            </li>
+            <li><b>Location: </b> <span id="location"></span></li>
+            <li><b>Company: </b><span id="companyName"></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

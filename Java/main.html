@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Dilation Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .clocks-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .clock-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .clock-panel h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .earth-panel h2 {
+            color: #00d4ff;
+        }
+        
+        .ship-panel h2 {
+            color: #7b2ff7;
+        }
+        
+        .clock {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .time-display {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .controls {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .control-group {
+            margin-bottom: 25px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .value-display {
+            min-width: 120px;
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #00d4ff;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00d4ff, #7b2ff7);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .preset-btn {
+            background: rgba(123, 47, 247, 0.2);
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+        
+        .preset-btn:hover {
+            background: rgba(123, 47, 247, 0.4);
+        }
+        
+        .info-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-panel h3 {
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #00d4ff;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .scenario-box {
+            background: rgba(123, 47, 247, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #7b2ff7;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .clocks-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Time Dilation Simulator</h1>
+        
+        <!-- Clock Displays -->
+        <div class="clocks-container">
+            <!-- Earth Clock -->
+            <div class="clock-panel earth-panel">
+                <h2>🌍 Earth Observer (Stationary)</h2>
+                <div class="clock">
+                    <canvas id="earthClock" width="250" height="250"></canvas>
+                </div>
+                <div class="time-display" id="earthTime">00:00:00.00</div>
+                <p style="text-align: center; opacity: 0.7;">Time passes normally</p>
+            </div>
+            
+            <!-- Spaceship Clock -->
+            <div class="clock-panel ship-panel">
+                <h2>🚀 Spaceship Observer (Moving)</h2>
+                <div class="clock">
+                    <canvas id="shipClock" width="250" height="250"></canvas>
+                </div>
+                <div class="time-display" id="shipTime">00:00:00.00</div>
+                <p style="text-align: center; opacity: 0.7;">Time passes slower at high speeds</p>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <label>Spaceship Velocity</label>
+                <div class="slider-container">
+                    <input type="range" id="velocitySlider" min="0" max="99.99" step="0.01" value="0">
+                    <div class="value-display" id="velocityDisplay">0.00% c</div>
+                </div>
+                <div class="button-group" style="margin-top: 15px;">
+                    <button class="preset-btn" onclick="setVelocity(0)">0% c</button>
+                    <button class="preset-btn" onclick="setVelocity(50)">50% c</button>
+                    <button class="preset-btn" onclick="setVelocity(75)">75% c</button>
+                    <button class="preset-btn" onclick="setVelocity(90)">90% c</button>
+                    <button class="preset-btn" onclick="setVelocity(95)">95% c</button>
+                    <button class="preset-btn" onclick="setVelocity(99)">99% c</button>
+                    <button class="preset-btn" onclick="setVelocity(99.9)">99.9% c</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>Time Multiplier (Simulation Speed)</label>
+                <div class="slider-container">
+                    <input type="range" id="multiplierSlider" min="0" max="4" step="1" value="2">
+                    <div class="value-display" id="multiplierDisplay">100x</div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-primary" id="playPauseBtn" onclick="togglePlayPause()">
+                    ▶️ Play
+                </button>
+                <button class="btn-secondary" onclick="reset()">
+                    🔄 Reset
+                </button>
+            </div>
+        </div>
+        
+        <!-- Information Panel -->
+        <div class="info-panel">
+            <h3>📊 Current Statistics</h3>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Velocity</div>
+                    <div class="stat-value" id="velocityKms">0 km/s</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Time Dilation Factor</div>
+                    <div class="stat-value" id="dilationFactor">1.00x</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Time Difference</div>
+                    <div class="stat-value" id="timeDifference">0.00 sec</div>
+                </div>
+            </div>
+            
+            <div class="scenario-box">
+                <h4 style="margin-bottom: 10px; color: #7b2ff7;">💡 What's Happening?</h4>
+                <p id="scenarioText">Adjust the velocity slider to see time dilation in action! At high speeds, the spaceship clock will tick slower than Earth's clock.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // GLOBAL VARIABLES
+        // ==========================================
+        
+        // These variables store the state of our simulation
+        let velocity = 0;              // Current velocity as percentage of light speed (0-99.99)
+        let isRunning = false;         // Is the simulation currently running?
+        let earthTime = 0;             // Elapsed time on Earth (in seconds)
+        let shipTime = 0;              // Elapsed time on spaceship (in seconds)
+        let timeMultiplier = 100;      // How fast time passes (1x, 10x, 100x, etc.)
+        let animationId = null;        // ID for requestAnimationFrame (so we can cancel it)
+        let lastTimestamp = null;      // Last frame's timestamp (for calculating delta time)
+        
+        // Physics constant
+        const SPEED_OF_LIGHT = 299792458; // Speed of light in meters per second
+        
+        // Get references to HTML elements (so we can update them)
+        const earthCanvas = document.getElementById('earthClock');
+        const shipCanvas = document.getElementById('shipClock');
+        const earthTimeDisplay = document.getElementById('earthTime');
+        const shipTimeDisplay = document.getElementById('shipTime');
+        const velocitySlider = document.getElementById('velocitySlider');
+        const multiplierSlider = document.getElementById('multiplierSlider');
+        const velocityDisplay = document.getElementById('velocityDisplay');
+        const multiplierDisplay = document.getElementById('multiplierDisplay');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        
+        // Get 2D drawing contexts for our canvases (this is how we draw on them)
+        const earthCtx = earthCanvas.getContext('2d');
+        const shipCtx = shipCanvas.getContext('2d');
+        
+        // ==========================================
+        // PHYSICS CALCULATIONS
+        // ==========================================
+        
+        // This function calculates the time dilation factor using Einstein's formula
+        // Formula: γ (gamma) = 1 / √(1 - v²/c²)
+        // Where v = velocity, c = speed of light
+        function calculateDilationFactor(velocityPercent) {
+            // Convert percentage to actual velocity
+            // Example: 50% of light speed = 0.5 * 299,792,458 m/s
+            const v = (velocityPercent / 100) * SPEED_OF_LIGHT;
+            
+            // Calculate v²/c² (this is called "beta squared")
+            // We divide velocity squared by light speed squared
+            const betaSquared = (v * v) / (SPEED_OF_LIGHT * SPEED_OF_LIGHT);
+            
+            // At 100% light speed, betaSquared = 1, and we'd divide by zero
+            // So we cap it at 0.9999 to avoid errors
+            if (betaSquared >= 0.9999) {
+                return 1000; // Return a very large number (near-infinite time dilation)
+            }
+            
+            // The actual formula: 1 / √(1 - v²/c²)
+            // Math.sqrt() calculates square root
+            return 1 / Math.sqrt(1 - betaSquared);
+        }
+        
+        // ==========================================
+        // TIME FORMATTING
+        // ==========================================
+        
+        // Converts seconds into HH:MM:SS.MS format
+        // Example: 3665.75 seconds → "01:01:05.75"
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);              // 1 hour = 3600 seconds
+            const minutes = Math.floor((seconds % 3600) / 60);     // Remaining minutes
+            const secs = Math.floor(seconds % 60);                 // Remaining seconds
+            const ms = Math.floor((seconds % 1) * 100);            // Milliseconds (2 digits)
+            
+            // padStart(2, '0') ensures two digits (e.g., 5 becomes "05")
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+        }
+        
+        // ==========================================
+        // CLOCK DRAWING
+        // ==========================================
+        
+        // This function draws an analog clock on a canvas
+        // Parameters: ctx = canvas context, time = time in seconds, color = color scheme
+        function drawClock(ctx, time, color) {
+            const canvas = ctx.canvas;
+            const centerX = canvas.width / 2;    // Center of the clock (X coordinate)
+            const centerY = canvas.height / 2;   // Center of the clock (Y coordinate)
+            const radius = canvas.width / 2 - 10; // Clock radius (with 10px padding)
+            
+            // Clear the canvas (removes previous drawing)
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw outer circle (clock face)
+            ctx.beginPath(); // Start a new drawing path
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI); // Draw a full circle
+            ctx.strokeStyle = color; // Set the color
+            ctx.lineWidth = 3; // Line thickness
+            ctx.stroke(); // Actually draw the line
+            
+            // Draw center dot
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill(); // Fill the circle with color
+            
+            // Calculate hand positions based on time
+            const seconds = time % 60;           // Seconds hand (0-59)
+            const minutes = (time / 60) % 60;    // Minutes hand (0-59)
+            const hours = (time / 3600) % 12;    // Hours hand (0-11)
+            
+            // Draw hour hand (shortest, thickest)
+            drawHand(ctx, centerX, centerY, radius * 0.5, hours * 30 - 90, 6, color);
+            // hours * 30: each hour = 30 degrees (360° / 12 hours)
+            // - 90: rotate so 0° points up instead of right
+            
+            // Draw minute hand (medium length)
+            drawHand(ctx, centerX, centerY, radius * 0.7, minutes * 6 - 90, 4, color);
+            // minutes * 6: each minute = 6 degrees (360° / 60 minutes)
+            
+            // Draw second hand (longest, thinnest)
+            drawHand(ctx, centerX, centerY, radius * 0.9, seconds * 6 - 90, 2, '#ff4444');
+            // seconds * 6: each second = 6 degrees (360° / 60 seconds)
+        }
+        
+        // Helper function to draw a single clock hand
+        // Parameters: context, center coordinates, length, angle (degrees), width, color
+        function drawHand(ctx, x, y, length, angle, width, color) {
+            // Convert angle from degrees to radians (Math functions use radians)
+            const radians = (angle * Math.PI) / 180;
+            
+            // Calculate end point of the hand using trigonometry
+            const endX = x + length * Math.cos(radians); // X = center + length * cos(angle)
+            const endY = y + length * Math.sin(radians); // Y = center + length * sin(angle)
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y);        // Start at center
+            ctx.lineTo(endX, endY);  // Draw line to end point
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width;
+            ctx.stroke();
+        }
+        
+        // ==========================================
+        // ANIMATION LOOP
+        // ==========================================
+        
+        // This function runs continuously (60 times per second) when simulation is playing
+        function animate(timestamp) {
+            // Calculate how much time has passed since last frame
+            if (lastTimestamp === null) {
+                lastTimestamp = timestamp; // First frame, just store timestamp
+            }
+            
+            const deltaTime = (timestamp - lastTimestamp) / 1000; // Convert ms to seconds
+            lastTimestamp = timestamp; // Store current timestamp for next frame
+            
+            // Update Earth time (progresses normally)
+            // deltaTime * timeMultiplier makes time pass faster for demonstration
+            earthTime += deltaTime * timeMultiplier;
+            
+            // Update ship time (progresses slower due to time dilation)
+            const dilationFactor = calculateDilationFactor(velocity);
+            // Divide by dilationFactor to slow down time
+            // Example: at 90% c, factor = 2.29, so ship time increases 2.29x slower
+            shipTime += (deltaTime * timeMultiplier) / dilationFactor;
+            
+            // Update all displays
+            updateDisplay();
+            
+            // Schedule next frame (creates the animation loop)
+            if (isRunning) {
+                animationId = requestAnimationFrame(animate);
+            }
+        }
+        
+        // ==========================================
+        // UPDATE DISPLAY
+        // ==========================================
+        
+        // Updates all visual elements on the page
+        function updateDisplay() {
+            // Update time displays
+            earthTimeDisplay.textContent = formatTime(earthTime);
+            shipTimeDisplay.textContent = formatTime(shipTime);
+            
+            // Draw both clocks
+            drawClock(earthCtx, earthTime, '#00d4ff');  // Earth = blue
+            drawClock(shipCtx, shipTime, '#7b2ff7');    // Ship = purple
+            
+            // Calculate statistics
+            const dilationFactor = calculateDilationFactor(velocity);
+            const timeDifference = earthTime - shipTime;
+            const velocityKmS = (velocity / 100) * SPEED_OF_LIGHT / 1000; // Convert to km/s
+            
+            // Update stat cards
+            document.getElementById('velocityKms').textContent = 
+                velocityKmS.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' km/s';
+            // .toFixed(0) = no decimal places
+            // .replace() = adds commas for thousands (e.g., 1,000,000)
+            
+            document.getElementById('dilationFactor').textContent = dilationFactor.toFixed(2) + 'x';
+            document.getElementById('timeDifference').textContent = timeDifference.toFixed(2) + ' sec';
+            
+            // Update scenario text based on velocity
+            updateScenarioText(velocity, dilationFactor);
+        }
+        
+        // ==========================================
+        // SCENARIO TEXT
+        // ==========================================
+        
+        // Updates the explanation text based on current speed
+        function updateScenarioText(vel, factor) {
+            const scenarioText = document.getElementById('scenarioText');
+            
+            if (vel < 10) {
+                scenarioText.textContent = "At low speeds, time dilation is negligible. Both clocks tick at nearly the same rate.";
+            } else if (vel < 50) {
+                scenarioText.textContent = `At ${vel.toFixed(1)}% light speed, time dilation is starting to become noticeable. The ship's clock is running ${factor.toFixed(2)}x slower than Earth's.`;
+            } else if (vel < 90) {
+                scenarioText.textContent = `At ${vel.toFixed(1)}% light speed, time dilation is significant! For every ${factor.toFixed(2)} hours on Earth, only 1 hour passes on the ship.`;
+            } else if (vel < 99) {
+                scenarioText.textContent = `At ${vel.toFixed(1)}% light speed, time is dramatically slowed! If you traveled for 1 year at this speed, ${factor.toFixed(2)} years would pass on Earth.`;
+            } else {
+                scenarioText.textContent = `At ${vel.toFixed(2)}% light speed, you're approaching the speed of light! Time on the ship is almost frozen relative to Earth. This is extreme time dilation!`;
+            }
+        }
+        
+        // ==========================================
+        // CONTROL FUNCTIONS
+        // ==========================================
+        
+        // Toggle between playing and paused
+        function togglePlayPause() {
+            isRunning = !isRunning; // Flip the boolean
+            
+            if (isRunning) {
+                playPauseBtn.innerHTML = '⏸️ Pause';
+                lastTimestamp = null; // Reset timestamp
+                animationId = requestAnimationFrame(animate); // Start animation
+            } else {
+                playPauseBtn.innerHTML = '▶️ Play';
+                if (animationId) {
+                    cancelAnimationFrame(animationId); // Stop animation
+                }
+            }
+        }
+        
+        // Reset everything to initial state
+        function reset() {
+            isRunning = false;
+            earthTime = 0;
+            shipTime = 0;
+            velocity = 0;
+            velocitySlider.value = 0;
+            playPauseBtn.innerHTML = '▶️ Play';
+            
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            
+            updateDisplay(); // Redraw with zero values
+        }
+        
+        // Set velocity to a specific percentage (used by preset buttons)
+        function setVelocity(percent) {
+            velocity = percent;
+            velocitySlider.value = percent;
+            velocityDisplay.textContent = percent.toFixed(2) + '% c';
+            updateDisplay();
+        }
+        
+        // ==========================================
+        // EVENT LISTENERS
+        // ==========================================
+        
+        // Listen for velocity slider changes
+        velocitySlider.addEventListener('input', function() {
+            velocity = parseFloat(this.value); // Convert string to number
+            velocityDisplay.textContent = velocity.toFixed(2) + '% c';
+            updateDisplay();
+        });
+        
+        // Listen for time multiplier slider changes
+        multiplierSlider.addEventListener('input', function() {
+            // Convert slider position (0-4) to actual multipliers (1, 10, 100, 1000, 10000)
+            const multipliers = [1, 10, 100, 1000, 10000];
+            timeMultiplier = multipliers[parseInt(this.value)];
+            multiplierDisplay.textContent = timeMultiplier + 'x';
+        });
+        
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        
+        // Draw initial clocks when page loads
+        updateDisplay();
+    </script>
+</body>
+</html>

@@ -11,6 +11,7 @@
 // false 	true 		true
 // true 	true 		true
 
+// 3. Equality Operator -- == checks the equality of both the operands 
 
 public class ThirdActivity{
 	public static void main(String args[]){
@@ -23,5 +24,9 @@ public class ThirdActivity{
 		System.out.println((c<b) || (b>a));
 		System.out.println((c>b) || (b<a));
 		System.out.println((c<b) || (b<a));
+
+		int n1 = Integer.parseInt(args[0]);
+		int n2 = Integer.parseInt(args[1]);
+		System.out.println(n1==n2);
 	}
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="top-bar py-4">
+      <h3 class="text-center fw-bold">E-commerce Store</h3>
+    </div>
+    <section>
+      <div class="container-fluid">
+        <h5 class="mb-4">Cart Items</h5>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="inner-one">
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <img
+                        src="/images/men-watch.jpg"
+                        class="card-img-top product-image"
+                        alt="..."
+                      />
+                      <h5 class="card-title product-name">
+                        Premium Analog Watch
+                      </h5>
+                      <h6 class="product-price">Price: 1200 Rs</h6>
+                      <a
+                        href="#"
+                        class="btn btn-outline-primary btn-sm addToCart"
+                        >Add to cart</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="inner-two">
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <img
+                        src="images/blazer.jpg"
+                        class="card-img-top product-image"
+                        alt="..."
+                      />
+                      <h5 class="card-title product-name">Blazer</h5>
+                      <h6 class="product-price">Price: 2500 Rs</h6>
+                      <a
+                        href="#"
+                        class="btn btn-outline-primary btn-sm addToCart"
+                        >Add to cart</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="inner-three">
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <img
+                        src="/images/shoe.jpg"
+                        class="card-img-top product-image"
+                        alt="..."
+                      />
+                      <h5 class="card-title product-name">
+                        Formal Black Sneaker
+                      </h5>
+                      <h6 class="product-price">Price: 1500 Rs</h6>
+                      <a
+                        href="#"
+                        class="btn btn-outline-primary btn-sm addToCart"
+                        >Add to cart</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="cart-container">
+              <div
+                class="d-flex align-items-center justify-content-between gap-5"
+              >
+                <h5 class="mb-4">My Cart🛒</h5>
+                <h6>Cart: (<span class="cart-count">5</span>)</h6>
+                <h6>Total: (<span class="total-price">0</span>)</h6>
+              </div>
+              <ul class="product-result"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js
+"></script>
+  </body>
+</html>

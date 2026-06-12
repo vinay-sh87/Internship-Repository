@@ -16,4 +16,31 @@
   	<servlet-name>ServletOne</servlet-name>
   	<url-pattern>/India</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SecondServlet</servlet-name>
+  	<servlet-class>com.app.SecondServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SecondServlet</servlet-name>
+  	<url-pattern>/SecondServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ThirdServlet</servlet-name>
+  	<servlet-class>com.app.ThirdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ThirdServlet</servlet-name>
+  	<url-pattern>/ThirdServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DatabaseServlet</servlet-name>
+  	<servlet-class>com.app.DatabaseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DatabaseServlet</servlet-name>
+  	<url-pattern>/InsertionServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,0 +1,30 @@
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		
+	</head>
+	<body>
+		<table width="70%" align="center" border=1>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Course</th>
+					<th>Update</th>
+					<th>Delete</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="student: ${students}">
+					<td th:text="${student.id}"></td>
+					<td th:text="${student.name}"></td>
+					<td th:text="${student.course}"></td>
+					<td ><a th:href="@{/student/edit/{id}(id=${student.id})}">update</a></td>
+					<td ><a th:href="@{/student/delete/{id}(id=${student.id})}">delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</body>
+
+</html>

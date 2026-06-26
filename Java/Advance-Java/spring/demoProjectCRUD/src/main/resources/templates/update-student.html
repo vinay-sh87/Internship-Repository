@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http//:www.thymeleaf.org">
+	<head></head>
+	<body>
+		
+		<form action="#" th:action="@{/student/update/{id}(id=${student.id})}" th:object="${student}" method="post" >
+			
+			
+			<input type="text" th:field="*{id}" id="id" hidden>
+			
+			<label for="name">Name:-</label>
+			<input type="text" th:field="*{name}" id="name" placeholder="Name">
+			
+			<label for="course">Course:-</label>
+			<input type="text" th:field="*{course}" id="course" placeholder="course">
+						
+						
+						<input type="submit" value="update Student">
+		</form>
+		
+		
+	</body>	
+
+
+
+
+
+</html>
